@@ -14,6 +14,7 @@ module.exports = {
         "ecmaVersion": 2018
     },
     "rules": {
-        "import/order": 0
+        "import/order": 0,
+        "comma-dangle": 0
     }
 };

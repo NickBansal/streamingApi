@@ -10,7 +10,7 @@ describe('/api', () => {
 
 
   describe('/streams/:user_id', () => {
-    it('GET returns 200 and the users profile', () => request.get(`/api/streams/${dummyData[0].userid}`)
+    it('GET returns 200 and the users profile', () => request.get(`/api/streams/${dummyData[0].userId}`)
       .expect(200)
       .then((res) => {
         expect(res.body).to.be.an('object');

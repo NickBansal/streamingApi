@@ -34,12 +34,19 @@ describe('/api', () => {
         expect(res.body.msg).to.equal('profile not found');
       }));
 
-    it('PATCH returns 200 and an updated streamsCurrentlyWatching', () => request
+    it('PUT returns 200 and an updated streamsCurrentlyWatching', () => request
       .put(`/api/streams/${dummyData[1].userId}/increase`)
       .expect(200)
       .then((res) => {
         expect(res.body.name).equal('Jamie Connor');
         expect(res.body.streamsCurrentlyWatching).equal(2);
+      }));
+
+    it('PUT returns 400 if the user is already watching 3 streams', () => request
+      .put(`/api/streams/${dummyData[3].userId}/increase`)
+      .expect(400)
+      .then((res) => {
+        expect(res.body.msg).to.equal('This user has reached their limit. Can ony watch a maximum of 3 streams at a time');
       }));
   });
 });

@@ -24,12 +24,28 @@ app.put('/api/streams/:userid/increase', (req, res) => {
   const { userid } = req.params;
   const userProfile = dummyData.find((user) => user.userId === userid);
 
-  userProfile.streamsCurrentlyWatching += 1;
-
-  res.send(userProfile);
+  if (userProfile.streamsCurrentlyWatching === 3) {
+    res.status(400)
+      .send({ msg: 'This user has reached their limit. Can ony watch a maximum of 3 streams at a time' });
+  } else {
+    userProfile.streamsCurrentlyWatching += 1;
+    res.send(userProfile);
+  }
 });
 
+app.put('/api/streams/:userid/decrease', (req, res) => {
+  const { userid } = req.params;
+  const userProfile = dummyData.find((user) => user.userId === userid);
 
-app.use('/api/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
+  if (userProfile.streamsCurrentlyWatching === 0) {
+    res.status(400)
+      .send({ msg: 'This user is currently not watching any streams' });
+  } else {
+    userProfile.streamsCurrentlyWatching -= 1;
+    res.send(userProfile);
+  }
+});
+
+// app.use('/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
 
 module.exports = app;

@@ -9,12 +9,12 @@ describe('/api', () => {
     .get('/api')
     .expect(200));
 
-  it('GET returns 404 error when passed a wrong url', () => request
-    .get('/api/wrongurl')
-    .expect(404)
-    .then((res) => {
-      expect(res.body.msg).to.equal('/api/wrongurl does not exist');
-    }));
+  //   it('GET returns 404 error when passed a wrong url', () => request
+  //     .get('/api/wrongurl')
+  //     .expect(404)
+  //     .then((res) => {
+  //       expect(res.body.msg).to.equal('/api/wrongurl does not exist');
+  //     }));
 
 
   describe('/streams/:user_id', () => {
@@ -34,7 +34,7 @@ describe('/api', () => {
         expect(res.body.msg).to.equal('profile not found');
       }));
 
-    it('PUT returns 200 and an updated streamsCurrentlyWatching', () => request
+    it('PUT returns 200 and an updated increased streamsCurrentlyWatching', () => request
       .put(`/api/streams/${dummyData[1].userId}/increase`)
       .expect(200)
       .then((res) => {
@@ -47,6 +47,23 @@ describe('/api', () => {
       .expect(400)
       .then((res) => {
         expect(res.body.msg).to.equal('This user has reached their limit. Can ony watch a maximum of 3 streams at a time');
+      }));
+
+    it('PUT returns 200 and an updated decreased streamsCurrentlyWatching', () => request
+      .put(`/api/streams/${dummyData[2].userId}/decrease`)
+      .expect(200)
+      .then((res) => {
+        expect(res.body.name).equal('Gracie Whitehouse');
+        expect(res.body.streamsCurrentlyWatching).equal(0);
+      }));
+
+
+    it('PUT returns 200 and an updated decreased streamsCurrentlyWatching', () => request
+      .put(`/api/streams/${dummyData[2].userId}/decrease`)
+      .expect(200)
+      .then((res) => {
+        expect(res.body.name).equal('Gracie Whitehouse');
+        expect(res.body.streamsCurrentlyWatching).equal(0);
       }));
   });
 });

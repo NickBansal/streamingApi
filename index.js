@@ -15,9 +15,10 @@ app.get('/api', (req, res) => {
 
 app.get('/api/streams/:userid', (req, res) => {
   const { userid } = req.params;
-  const userProfile = dummyData.filter((user) => user.userId === userid);
+  const userProfile = dummyData.find((user) => user.userId === userid);
+
   if (checkUserExists(userid)) {
-    res.send(userProfile[0]);
+    res.send(userProfile);
   } else {
     res.status(404).send({ msg: 'profile not found' });
   }

@@ -13,7 +13,16 @@ describe('/api', () => {
     it('GET returns 200 and the users profile', () => request.get(`/api/streams/${dummyData[0].userId}`)
       .expect(200)
       .then((res) => {
+        expect(res.body.name).equal('Natasha Quinn');
+        expect(res.body.streamsCurrentlyWatching).equal(0);
         expect(res.body).to.be.an('object');
+      }));
+
+    it('GET returns 400 with an unknown username', () => request.get('/api/streams/invalid_user_id')
+      .expect(404)
+      .then((res) => {
+        console.log(res.body);
+        expect(res.body.msg).to.equal('profile not found');
       }));
   });
 });

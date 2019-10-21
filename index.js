@@ -19,6 +19,7 @@ app.get('/api/streams/:userid', (req, res) => {
   }
 });
 
+
 app.use('/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
 
 module.exports = app;

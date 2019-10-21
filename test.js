@@ -29,5 +29,11 @@ describe('/api', () => {
       .then((res) => {
         expect(res.body.msg).to.equal('profile not found');
       }));
+
+    it('PATCH returns 200 and an updated vote_count', () => request.patch(`/api/streams/${dummyData[0].userId}/?vote=up`)
+      .expect(200)
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+      }));
   });
 });

@@ -1,4 +1,4 @@
-const app = require('.');
+const app = require('../');
 const request = require('supertest')(app);
 const { expect } = require('chai');
 const dummyData = require('../testData');
@@ -28,7 +28,7 @@ describe('/api', () => {
 
     it('GET returns 400 with an unknown user id', () => request
       .get('/api/streams/invalid_user_id')
-      .expect(400)
+      .expect(404)
       .then((res) => {
         expect(res.body.msg).to.equal('profile not found');
       }));
@@ -48,6 +48,13 @@ describe('/api', () => {
         expect(res.body.msg).to.equal('This user has reached their limit. Can ony watch a maximum of 3 streams at a time');
       }));
 
+    it('PUT returns 404 if the user does not exist', () => request
+      .put('/api/streams/wrong_userid/increase')
+      .expect(404)
+      .then((res) => {
+        expect(res.body.msg).to.equal('profile not found');
+      }));
+
     it('PUT returns 200 and an updated decreased streamsCurrentlyWatching', () => request
       .put(`/api/streams/${dummyData[2].userId}/decrease`)
       .expect(200)
@@ -61,6 +68,13 @@ describe('/api', () => {
       .expect(400)
       .then((res) => {
         expect(res.body.msg).to.equal('This user is not currently watching any streams');
+      }));
+
+    it('PUT returns 404 if the user does not exist', () => request
+      .put('/api/streams/wrong_userid/decrease')
+      .expect(404)
+      .then((res) => {
+        expect(res.body.msg).to.equal('profile not found');
       }));
   });
 });

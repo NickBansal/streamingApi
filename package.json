@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha streamAPI/test.js",
-    "start": "node streamAPI/index.js",
-    "dev": "nodemon streamAPI/index.js"
+    "test": "mocha tests/test.js",
+    "start": "node listen.js",
+    "dev": "nodemon listen.js"
   },
   "keywords": [],
   "author": "",

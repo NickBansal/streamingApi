@@ -1,8 +1,7 @@
 const app = require('.');
 const request = require('supertest')(app);
-// eslint-disable-next-line no-unused-vars
 const { expect } = require('chai');
-const dummyData = require('./testData');
+const dummyData = require('../testData');
 
 describe('/api', () => {
   it('should return a 200 on the API route page', () => request
@@ -61,7 +60,7 @@ describe('/api', () => {
       .put(`/api/streams/${dummyData[4].userId}/decrease`)
       .expect(400)
       .then((res) => {
-        expect(res.body.msg).to.equal('This user is currently not watching any streams');
+        expect(res.body.msg).to.equal('This user is not currently watching any streams');
       }));
   });
 });

@@ -1,10 +1,7 @@
 const express = require('express');
 
 const app = express();
-const dummyData = require('./testData');
-const cors = require('cors');
-
-app.use(cors());
+const dummyData = require('../testData');
 
 app.get('/api', (req, res) => {
   res.send(dummyData);
@@ -39,7 +36,7 @@ app.put('/api/streams/:userid/decrease', (req, res) => {
 
   if (userProfile.streamsCurrentlyWatching === 0) {
     res.status(400)
-      .send({ msg: 'This user is currently not watching any streams' });
+      .send({ msg: 'This user is not currently watching any streams' });
   } else {
     userProfile.streamsCurrentlyWatching -= 1;
     res.send(userProfile);
@@ -47,5 +44,12 @@ app.put('/api/streams/:userid/decrease', (req, res) => {
 });
 
 app.use('/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
+
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => {
+  console.log(`Listening on server ${port}`);
+});
+
 
 module.exports = app;

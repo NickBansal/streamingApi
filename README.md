@@ -1,6 +1,8 @@
 # Live streaming API
 This API can be used to track a particular user and see how many live streams they are watching. It should show errors if the user is watching more then 3 or less then zero streams.
 
+I have added a folder called testData which emulates a database of users. I have used this to test my work
+
 ## Useful links
 - [NodeJs](https://nodejs.org/en/)
 - [ExpressJs](https://expressjs.com/)

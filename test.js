@@ -1,5 +1,6 @@
 const app = require('.');
 const request = require('supertest')(app);
+// eslint-disable-next-line no-unused-vars
 const { expect } = require('chai');
 
 describe('/api', () => {

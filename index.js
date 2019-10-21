@@ -15,7 +15,7 @@ app.get('/api/streams/:userid', (req, res) => {
   if (userProfile.length > 0) {
     res.send(userProfile[0]);
   } else {
-    res.status(404).send({ msg: 'profile not found' });
+    res.status(400).send({ msg: 'profile not found' });
   }
 });
 

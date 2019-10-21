@@ -1,0 +1,8 @@
+const app = require('.');
+const request = require('supertest')(app);
+const { expect } = require('chai');
+
+describe('/api', () => {
+  it('returns a 200 on the API route page', () => request.get('/api')
+    .expect(200));
+});

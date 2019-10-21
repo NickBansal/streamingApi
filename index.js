@@ -2,7 +2,9 @@ const express = require('express');
 
 const app = express();
 const dummyData = require('./testData');
+const cors = require('cors');
 
+app.use(cors());
 
 app.get('/api', (req, res) => {
   res.send(dummyData);
@@ -18,21 +20,16 @@ app.get('/api/streams/:userid', (req, res) => {
   }
 });
 
-app.patch('/api/streams/:userid?streamcount=up', (req, res) => {
+app.put('/api/streams/:userid/increase', (req, res) => {
   const { userid } = req.params;
-  const { streamcount } = req.query;
-  console.log(streamcount);
-  //   const value = streams === 'up' ? 1 : -1;
+  const userProfile = dummyData.find((user) => user.userId === userid);
 
-  //   const userProfile = dummyData.find((user) => user.userId === userid);
-  //   userProfile.streamsCurrentlyWatching += value;
+  userProfile.streamsCurrentlyWatching += 1;
 
-  //   console.log(userid);
-
-//   res.send({ userProfile });
+  res.send(userProfile);
 });
 
 
-app.use('/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
+app.use('/api/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
 
 module.exports = app;

@@ -5,10 +5,12 @@ const { expect } = require('chai');
 const dummyData = require('./testData');
 
 describe('/api', () => {
-  it('should return a 200 on the API route page', () => request.get('/api')
+  it('should return a 200 on the API route page', () => request
+    .get('/api')
     .expect(200));
 
-  it('GET returns 404 error when passed a wrong url', () => request.get('/api/wrongurl')
+  it('GET returns 404 error when passed a wrong url', () => request
+    .get('/api/wrongurl')
     .expect(404)
     .then((res) => {
       expect(res.body.msg).to.equal('/api/wrongurl does not exist');
@@ -16,7 +18,8 @@ describe('/api', () => {
 
 
   describe('/streams/:user_id', () => {
-    it('GET returns 200 and the users profile', () => request.get(`/api/streams/${dummyData[0].userId}`)
+    it('GET returns 200 and the users profile', () => request
+      .get(`/api/streams/${dummyData[0].userId}`)
       .expect(200)
       .then((res) => {
         expect(res.body.name).equal('Natasha Quinn');
@@ -24,16 +27,19 @@ describe('/api', () => {
         expect(res.body).to.be.an('object');
       }));
 
-    it('GET returns 400 with an unknown user id', () => request.get('/api/streams/invalid_user_id')
+    it('GET returns 400 with an unknown user id', () => request
+      .get('/api/streams/invalid_user_id')
       .expect(400)
       .then((res) => {
         expect(res.body.msg).to.equal('profile not found');
       }));
 
-    it('PATCH returns 200 and an updated streamsCurrentlyWatching', () => request.patch(`/api/streams/${dummyData[0].userId}?streamcount=up`)
+    it('PATCH returns 200 and an updated streamsCurrentlyWatching', () => request
+      .put(`/api/streams/${dummyData[1].userId}/increase`)
       .expect(200)
       .then((res) => {
-        expect(res.body).to.be.an('object');
+        expect(res.body.name).equal('Jamie Connor');
+        expect(res.body.streamsCurrentlyWatching).equal(2);
       }));
   });
 });

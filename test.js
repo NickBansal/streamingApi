@@ -19,9 +19,8 @@ describe('/api', () => {
       }));
 
     it('GET returns 400 with an unknown username', () => request.get('/api/streams/invalid_user_id')
-      .expect(404)
+      .expect(400)
       .then((res) => {
-        console.log(res.body);
         expect(res.body.msg).to.equal('profile not found');
       }));
   });

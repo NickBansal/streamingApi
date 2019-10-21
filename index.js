@@ -46,6 +46,6 @@ app.put('/api/streams/:userid/decrease', (req, res) => {
   }
 });
 
-// app.use('/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
+app.use('/*', (req, res) => res.status(404).send({ msg: `${req.originalUrl} does not exist` }));
 
 module.exports = app;

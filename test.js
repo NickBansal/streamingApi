@@ -9,12 +9,12 @@ describe('/api', () => {
     .get('/api')
     .expect(200));
 
-  //   it('GET returns 404 error when passed a wrong url', () => request
-  //     .get('/api/wrongurl')
-  //     .expect(404)
-  //     .then((res) => {
-  //       expect(res.body.msg).to.equal('/api/wrongurl does not exist');
-  //     }));
+  it('GET returns 404 error when passed a wrong url', () => request
+    .get('/api/wrongurl')
+    .expect(404)
+    .then((res) => {
+      expect(res.body.msg).to.equal('/api/wrongurl does not exist');
+    }));
 
 
   describe('/streams/:user_id', () => {
@@ -57,13 +57,11 @@ describe('/api', () => {
         expect(res.body.streamsCurrentlyWatching).equal(0);
       }));
 
-
-    it('PUT returns 200 and an updated decreased streamsCurrentlyWatching', () => request
-      .put(`/api/streams/${dummyData[2].userId}/decrease`)
-      .expect(200)
+    it('PUT returns 400 if the user is not watching any streams', () => request
+      .put(`/api/streams/${dummyData[4].userId}/decrease`)
+      .expect(400)
       .then((res) => {
-        expect(res.body.name).equal('Gracie Whitehouse');
-        expect(res.body.streamsCurrentlyWatching).equal(0);
+        expect(res.body.msg).to.equal('This user is currently not watching any streams');
       }));
   });
 });

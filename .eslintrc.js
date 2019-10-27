@@ -16,6 +16,7 @@ module.exports = {
     "rules": {
         "import/order": 0,
         "comma-dangle": 0,
-        "import/no-extraneous-dependencies": 0
+        "import/no-extraneous-dependencies": 0,
+        "no-console": 0
     }
 };

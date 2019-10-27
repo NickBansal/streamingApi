@@ -3,11 +3,7 @@ const express = require('express');
 const app = express();
 const dummyData = require('./testData');
 
-const checkUserExists = (userid) => {
-  if (dummyData.filter((user) => user.userId === userid).length > 0) {
-    return true;
-  } return false;
-};
+const checkUserExists = (userid) => dummyData.filter((user) => user.userId === userid).length > 0;
 
 app.get('/api', (req, res) => {
   res.send(dummyData);

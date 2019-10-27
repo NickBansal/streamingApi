@@ -50,7 +50,7 @@ $ npm run dev
 ```
 
 ### Running the Tests
-Automated tests for each endpoint are located in `./test.js`.
+Automated tests for each endpoint are located in `./testData/test.js`.
 
 Run these tests using the command:
 ```js
